@@ -3,12 +3,13 @@ pipeline {
     tools {
         maven 'maven3' 
     }
-    stage('Create directory') {
+   
+    stages {
+         stage('Create directory') {
             steps {
                 sh "mkdir ${env.JOB_NAME}-${env.BUILD_NUMBER}"
             }
         }
-    stages {
         stage('Git clone/pull') {
             steps {
                 echo 'Hello World'
