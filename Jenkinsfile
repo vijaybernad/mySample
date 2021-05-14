@@ -3,19 +3,20 @@ pipeline {
     tools {
         maven 'maven3' 
     }
-
-    stages {
-        stage('Git clone/pull') {
-            steps {
-                echo 'Hello World'
-                git credentialsId: '3e5f4e40-ea03-40e3-9f96-2ac0956cb15f', url: 'https://github.com/vijaybernad/mySample'
-            }
-        }
-        stage('Create directory') {
+    stage('Create directory') {
             steps {
                 sh "mkdir ${env.JOB_NAME}-${env.BUILD_NUMBER}"
             }
         }
+    stages {
+        stage('Git clone/pull') {
+            steps {
+                echo 'Hello World'
+                sh "cd ${env.JOB_NAME}-${env.BUILD_NUMBER}"
+                git credentialsId: '3e5f4e40-ea03-40e3-9f96-2ac0956cb15f', url: 'https://github.com/vijaybernad/mySample'
+            }
+        }
+       
         stage('Maven Build') {
             steps {
                 sh 'mvn clean package'
