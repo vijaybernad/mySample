@@ -13,7 +13,7 @@ pipeline {
         stage('Git clone/pull') {
             steps {
                 echo 'Hello World'
-                dir('${env.JOB_NAME}-${env.BUILD_NUMBER}') {
+                dir("${env.JOB_NAME}-${env.BUILD_NUMBER}") {
                     sh "mkdir testfolder"
                 }                
                 sh "pwd"
