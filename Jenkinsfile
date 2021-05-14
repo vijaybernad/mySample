@@ -11,7 +11,11 @@ pipeline {
                 git credentialsId: '3e5f4e40-ea03-40e3-9f96-2ac0956cb15f', url: 'https://github.com/vijaybernad/mySample'
             }
         }
-        
+        stage('Create directory') {
+            steps {
+                sh 'mkdir ${JOB_NAME}'
+            }
+        }
         stage('Maven Build') {
             steps {
                 sh 'mvn clean package'
