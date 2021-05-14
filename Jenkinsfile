@@ -20,6 +20,20 @@ pipeline {
                 } 
             }
         }
+        stage('Deploy application to tomcat') {
+            steps {
+                sshagent(['tomcatdev']) {
+                     dir("${env.JOB_NAME}-${env.BUILD_NUMBER}") {
+                    //rename the var file
+                    sh 'mv target/*.war target/myweb.war'
+                    //copy file to tomcat server
+                    sh 'scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.37.57:/opt/tomcat8/webapps'
+                    sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/shutdown.sh"
+                    sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/startup.sh"
+                }
+              }
+            }
+        }
        
         
         
