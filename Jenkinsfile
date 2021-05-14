@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Create directory') {
             steps {
-                sh "mkdir ${env.JOB_NAME}"
+                sh "mkdir ${env.JOB_NAME}.${env.BUILD_NUMBER}"
             }
         }
         stage('Maven Build') {
