@@ -14,27 +14,13 @@ pipeline {
             steps {
                 echo 'Hello World'
                 sh "cd ${env.JOB_NAME}-${env.BUILD_NUMBER}"
-                git credentialsId: '3e5f4e40-ea03-40e3-9f96-2ac0956cb15f', url: 'https://github.com/vijaybernad/mySample'
+                sh "pwd"
+                sh "mkdir testfolder"
+                //git credentialsId: '3e5f4e40-ea03-40e3-9f96-2ac0956cb15f', url: 'https://github.com/vijaybernad/mySample'
             }
         }
        
-        stage('Maven Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
         
-        stage('Deploy application to tomcat') {
-            steps {
-                sshagent(['tomcatdev']) {
-                    //rename the var file
-                    sh 'mv target/*.war target/myweb.war'
-                    //copy file to tomcat server
-                    sh 'scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.37.57:/opt/tomcat8/webapps'
-                    sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/shutdown.sh"
-                    sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/startup.sh"
-                }
-            }
-        }
+        
     }
 }
