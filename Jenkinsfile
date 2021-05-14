@@ -28,7 +28,7 @@ pipeline {
                     sh 'mv target/*.war target/myweb.war'
                     sh "ssh ec2-user@172.31.37.57 mkdir -p /opt/tomcat8/webapps/${env.JOB_NAME}-${env.BUILD_NUMBER}"
                     //copy file to tomcat server
-                    sh "scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.37.57:/opt/tomcat8/webapps/${env.JOB_NAME}-${env.BUILD_NUMBER}"
+                    sh "scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.37.57:/opt/tomcat8/webapps/"
                     sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/shutdown.sh"
                     sh "ssh ec2-user@172.31.37.57 /opt/tomcat8/bin/startup.sh"
                 }
