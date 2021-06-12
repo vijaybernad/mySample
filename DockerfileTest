@@ -1,0 +1,6 @@
+FROM alpine:3.13.5
+LABEL AUTHOR="vijay"
+LABEL EMAIL="vijay.solitude@gmail.com"
+
+#Install Java
+RUN apk add openjdk8
